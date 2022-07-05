@@ -21,6 +21,7 @@ cd ~/chainlink-docker/.monitoring/.tls/.prometheus && openssl req -x509 -out   ~
 
 #### Install HTPASSWD
 ```
+sudo apt install apache2-utils -y
 sudo apt-get install httpd-tools
 ```
 #### Prometheus auth
