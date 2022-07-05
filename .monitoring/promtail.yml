@@ -1,29 +1,26 @@
-server: 
+server:
   http_listen_port: 9080 
   grpc_listen_port: 0 
 positions: 
   filename: /tmp/positions.yaml 
 clients: 
-  - url: http://loki:3100/loki/api/v1/push 
+  - url: REMOTE-URL-FROM-GRAFANA-CLOUD
 scrape_configs: 
 - job_name: system 
+  pipeline_stages: 
+  - docker: {} 
   static_configs: 
   - targets: 
       - localhost 
     labels: 
       job: varlogs 
       __path__: /var/log/*log 
-- job_name: containers 
-  static_configs: 
-  - targets: 
-      - localhost 
-    labels: 
-      job: containerlogs 
-      __path__: /var/lib/docker/containers/*/*log 
 - job_name: chainlink 
+  pipeline_stages: 
+  - docker: {} 
   static_configs: 
   - targets: 
       - localhost 
     labels: 
-      job: chainlink 
-      __path__: /var/lib/docker/containers/CONTAINER-ID-NUMBER/*log
+      job: chainlinkNode 
+      __path__: /var/lib/docker/containers/CHAINLINK-CONTAINER-NUMBER/*log
