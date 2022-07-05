@@ -1,0 +1,57 @@
+version: '3.8'
+services:
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /:/hostfs
+      - ~/chainlink-docker/.monitoring/exporterweb.yml:/hostfs/web.yml
+      - ~/chainlink-docker/.monitoring/.tls/.node-exporter/node-exporter.key:/tls/node-exporter.key
+      - ~/chainlink-docker/.monitoring/.tls/.node-exporter/node-exporter.crt:/tls/node-exporter.crt
+    command:
+      - '--path.rootfs=/hostfs'
+      - '--web.config=/hostfs/web.yml'
+      - '--user=root'
+    ports:
+      - 9100:9100
+    networks:
+      - chainlink
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ~/chainlink-docker/.monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ~/chainlink-docker/.monitoring/.tls/.prometheus/prometheus.key:/tls/prometheus.key
+      - ~/chainlink-docker/.monitoring/.tls/.prometheus/prometheus.crt:/tls/prometheus.crt
+      - ~/chainlink-docker/.monitoring/prometheusweb.yml:/etc/prometheus/web.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.config.file=/etc/prometheus/web.yml'
+      - '--user=root'
+    ports:
+      - 9090:9090
+    networks:
+      - chainlink
+
+  promtail:
+    image: grafana/promtail
+    container_name: promtail
+    restart: unless-stopped
+    volumes:
+      - ~/chainlink-docker/.monitoring/promtail.yml:/mnt/config/promtail.yml
+      - /var/log:/var/log
+      - /var/lib/docker:/var/lib/docker
+    command:
+      - '--config.file=/mnt/config/promtail.yml'
+      - '--user=root'
+    ports:
+      - 9080:9080
+    networks:
+      - chainlink
+networks: 
+  chainlink:
+    driver: bridge
