@@ -19,10 +19,9 @@ cd ~/chainlink-docker/.monitoring/.tls/.prometheus && openssl req -x509 -out   ~
 
 ### Create encrypted pws + add them to exporterweb.yml, prometheusweb.yml
 
-#### Install HTPASSWD
+#### Install Apache Utils
 ```
 sudo apt install apache2-utils -y
-sudo apt-get install httpd-tools
 ```
 #### Prometheus auth
 ```
