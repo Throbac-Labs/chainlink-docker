@@ -20,7 +20,7 @@ scrape_configs:
       username: <user-name>  # add here your Username of the node-exporter authentication login -- i try to keep this the same as prometheus 
       password: <password>  # add here your pw of the node-exporter authentication login 
    static_configs: 
-     - targets: ['CONTAINER-ID:9100']  # add the container ID of your running node-exporter 
+     - targets: ['node-exporter:9100']  # add the container ID of your running node-exporter 
    scheme: https 
    tls_config:
 #    ca_file: /tls/prometheus.crt 
@@ -29,19 +29,19 @@ scrape_configs:
      insecure_skip_verify: true 
  - job_name: 'chainlink_p1' 
    static_configs: 
-     - targets: ['CONTAINER-ID:6689']  # add the container ID of your running Node and if you use a diffrent port you can also configure it 
+     - targets: ['chainlink-node:6689']  # add the container ID of your running Node and if you use a diffrent port you can also configure it 
    scheme: https 
    tls_config: 
      insecure_skip_verify: true 
  - job_name: 'externalAdapter_1' 
    static_configs: 
-     - targets: ['CONTAINERID:9080']  # add the container ID of your running external adapter and if you use a diffrent port you can also configure it 
+     - targets: ['ea-1:9080']  # add the container ID of your running external adapter and if you use a diffrent port you can also configure it 
    scheme: http 
    tls_config: 
      insecure_skip_verify: true 
  - job_name: 'externalAdapter_2' 
    static_configs: 
-     - targets: ['CONTAINERID:9080']  # add the container ID of your running external adapter and if you use a diffrent port you can also configure it 
+     - targets: ['ea-2:9080']  # add the container ID of your running external adapter and if you use a diffrent port you can also configure it 
    scheme: http 
    tls_config: 
      insecure_skip_verify: true 
