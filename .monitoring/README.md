@@ -3,7 +3,6 @@
 changes:
 
 - create tls certificates
-- create encrypted pws
 - add remote write url, username, & pw to prometheus.yml
 - add remote write url to promtail.yml
 - add proper container log volume to promtail.yml
