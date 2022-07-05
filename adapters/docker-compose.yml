@@ -29,4 +29,5 @@ services:
        - chainlink
 networks: 
   chainlink:
+    name: chainlink
     driver: bridge
