@@ -14,7 +14,7 @@ scrape_configs:
      - targets: ['localhost:9090'] 
    scheme: https 
    tls_config: 
-     ca_file: /.tls/prometheus.crt 
+     ca_file: /tls/prometheus.crt 
  - job_name: 'node-exporter' 
    basic_auth: 
       username: <user-name>  # add here your Username of the node-exporter authentication login -- i try to keep this the same as prometheus 
