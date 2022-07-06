@@ -1,0 +1,31 @@
+version: '3.8'  
+services:
+  chainlink:
+    image: smartcontract/chainlink:1.2.0
+    container_name: chainlink
+    restart: unless-stopped 
+    env_file: chainlink/chainlink.env 
+    depends_on: 
+      - eth-proxy 
+    ports: 
+      - 6689:6689 
+ #     - P2P-ANNOUNCE-PORT:P2P-ANNOUNCE-PORT 
+    volumes: 
+      - /chainlink:/chainlink 
+      - /chainlink/.secrets:/secrets 
+    command: ["local", "n", "-p",  "/secrets/.password", "-a", "/secrets/.api"]
+  eth-proxy:  
+    image: fiews/cl-eth-failover  
+    container_name: eth-proxy
+    restart: unless-stopped
+    ports: 4000:4000
+    volumes: 
+      - eth-proxy:/var/eth-proxy/ 
+    entrypoint: /bin/sh -c "node index.js ETH-NODE-WS-URL-#1 ETH-NODE-WS-URL-#2  2>&1 | tee /var/eth-proxy/eth-proxy.log"
+    networks:  
+      - chainlink
+networks:   
+  chainlink:  
+    driver: bridge
+volumes: 
+  eth-proxy:  
