@@ -12,7 +12,9 @@ services:
  #     - P2P-ANNOUNCE-PORT:P2P-ANNOUNCE-PORT 
     volumes: 
       - ~/chainlink-docker/chainlink:/chainlink 
-      - ~/chainlink-docker/.secrets:/secrets 
+      - ~/chainlink-docker/.secrets:/secrets
+      - ~/chainlink-docker/.tls/server.key:/chainlink/tls/server.key 
+      - ~/chainlink-docker/.tls/server.crt:/chainlink/tls/server.crt 
     command: ["local", "n", "-p",  "/secrets/.password", "-a", "/secrets/.api"]
     networks:
       - chainlink
