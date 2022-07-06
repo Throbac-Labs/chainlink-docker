@@ -20,7 +20,8 @@ services:
     image: fiews/cl-eth-failover  
     container_name: eth-proxy
     restart: unless-stopped
-    ports: 4000:4000
+    ports: 
+      - 4000:4000
     volumes: 
       - eth-proxy:/var/eth-proxy/ 
     entrypoint: /bin/sh -c "node index.js ETH-NODE-WS-URL-#1 ETH-NODE-WS-URL-#2  2>&1 | tee /var/eth-proxy/eth-proxy.log"
