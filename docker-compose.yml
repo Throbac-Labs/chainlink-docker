@@ -14,6 +14,8 @@ services:
       - ~/chainlink-docker/chainlink:/chainlink 
       - ~/chainlink-docker/.secrets:/secrets 
     command: ["local", "n", "-p",  "/secrets/.password", "-a", "/secrets/.api"]
+    networks:
+      - chainlink
   eth-proxy:  
     image: fiews/cl-eth-failover  
     container_name: eth-proxy
