@@ -11,8 +11,8 @@ services:
       - 6689:6689 
  #     - P2P-ANNOUNCE-PORT:P2P-ANNOUNCE-PORT 
     volumes: 
-      - /chainlink:/chainlink 
-      - /chainlink/.secrets:/secrets 
+      - ~/chainlink-docker/chainlink:/chainlink 
+      - ~/chainlink-docker/.secrets:/secrets 
     command: ["local", "n", "-p",  "/secrets/.password", "-a", "/secrets/.api"]
   eth-proxy:  
     image: fiews/cl-eth-failover  
